@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    &,
+    body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        text-wrap: pretty;
+
+        app-root {
+            &,
+            .app-layout,
+            .app-layout > :not(router-outlet) {
+                display: inherit;
+                flex-direction: inherit;
+                flex: 1;
+            }
+        }
+    }
+
+    body {
+        margin: 0;
+    }
+}

@@ -1,0 +1,8 @@
+/node_modules
+build
+dist
+
+.github/*
+
+.vscode/*
+!.vscode/settings.json
