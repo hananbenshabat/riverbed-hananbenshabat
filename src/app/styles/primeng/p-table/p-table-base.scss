@@ -1,0 +1,12 @@
+p-table {
+    .p-datatable {
+        .p-datatable-table-container {
+            flex: 1;
+
+            .p-datatable-table {
+                border-collapse: initial;
+                table-layout: fixed;
+            }
+        }
+    }
+}

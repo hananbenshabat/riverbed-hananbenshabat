@@ -1,0 +1,16 @@
+p-card.p-card-book {
+    .p-card {
+        &:has(.p-card-content:empty) {
+            --p-card-background: transparent;
+        }
+
+        .p-card-header {
+            overflow: hidden;
+        }
+
+        .p-card-body {
+            max-height: max-content;
+            flex: 1;
+        }
+    }
+}

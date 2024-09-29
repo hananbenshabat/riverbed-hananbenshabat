@@ -1,3 +1,101 @@
-<!-- [options]="cities"
-[(ngModel)]="selectedCity" -->
-<p-listbox optionLabel="name" [filter]="true" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
+<div class="books-container relative flex flex-1 self-stretch">
+    <!-- Books Selection -->
+    <p-table
+        #dt
+        class="flex w-2/5"
+        [style]="{
+            width: '100%',
+            display: 'flex',
+            'flex-direction': 'column',
+            'border-inline-end': '1px solid var(--p-toolbar-border-color)',
+            '--p-datatable-header-border-width': '0 0 1px 0'
+        }"
+        tableStyleClass="h-full"
+        [tableStyle]="{ height: '100%' }"
+        [(selection)]="selectedBook"
+        [value]="books"
+        selectionMode="single"
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="50"
+        dataKey="key"
+        scrollHeight="flex"
+        [showLoader]="false"
+        [loading]="loadingBooks"
+        (selectionChange)="loadingSelectedBook = true">
+        <ng-template pTemplate="caption">
+            <p-iconfield iconPosition="left">
+                <p-inputicon
+                    class="pointer-events-none cursor-text"
+                    [ngStyle]="{ top: '40%', '--p-form-field-padding-x': '1rem' }">
+                    <i class="pi pi-search"></i>
+                </p-inputicon>
+                <input
+                    class="w-full"
+                    [(ngModel)]="inputSearch"
+                    [spellcheck]="false"
+                    placeholder="Search by title, author"
+                    type="text"
+                    [autofocus]="true"
+                    pAutoFocus
+                    pInputText
+                    (input)="debounceGetBooks($any($event).target.value)" />
+            </p-iconfield>
+        </ng-template>
+        <ng-template pTemplate="body" let-book let-rowIndex="rowIndex">
+            <tr
+                [class]="selectedBook === book ? 'pointer-events-none cursor-default' : ''"
+                style="height: 50px"
+                [pSelectableRow]="book"
+                [pSelectableRowIndex]="rowIndex">
+                <td>{{ book.title }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="loadingbody">
+            <tr *ngFor="let i of [].constructor(16)" style="height: 50px">
+                <td class="pointer-events-none">
+                    <p-skeleton [ngStyle]="{ width: 100 | random: 30 }" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr *ngIf="!loadingBooks && inputSearch" style="height: 50px">
+                <td class="pointer-events-none content-start">No books found</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!-- Selected Book -->
+    <div class="relative flex flex-col flex-1 self-stretch pt-20">
+        <p-card
+            *ngIf="selectedBook"
+            class="p-card-book flex flex-col self-center overflow-hidden z-10 max-h-max"
+            [style]="{ width: '25dvw', 'max-height': '69dvh' }"
+            styleClass="flex-1 overflow-hidden">
+            <ng-template pTemplate="header">
+                <img
+                    *ngIf="selectedBook.cover_i"
+                    class="w-full h-full rounded-t-md"
+                    [style]="{ opacity: loadingSelectedBook ? '0.5' : '1' }"
+                    [draggable]="false"
+                    src="https://covers.openlibrary.org/b/id/{{ selectedBook.cover_i }}-L.jpg"
+                    alt="Cover of {{ selectedBook.title }}"
+                    (load)="loadingSelectedBook = false" />
+            </ng-template>
+
+            <ng-template pTemplate="content">
+                <h1 *ngIf="selectedBook.subtitle" class="w-full">{{ selectedBook.subtitle }}</h1>
+                <h2 *ngIf="selectedBook.authors?.[0]?.name" class="mt-2">
+                    by
+                    <ng-container *ngFor="let author of selectedBook.authors; let isLast = last">
+                        {{ author.name }}<ng-container *ngIf="!isLast">, </ng-container>
+                    </ng-container>
+                </h2>
+            </ng-template>
+        </p-card>
+        <img
+            class="fixed top-1/4 aspect-square max-w-prose self-end"
+            src="assets/icons/svg/video-pattern.svg"
+            [draggable]="false"
+            alt="Book selection background" />
+    </div>
+</div>

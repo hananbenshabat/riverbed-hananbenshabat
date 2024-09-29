@@ -1,0 +1,11 @@
+<p-toolbar>
+    <div class="p-toolbar-group-start">
+        <img class="select-none" src="assets/icons/svg/logo.svg" [draggable]="false" alt="Riverbed" />
+    </div>
+    <div class="p-toolbar-group-end">
+        <p-togglebutton
+            [onIcon]="'pi pi-sun'"
+            [offIcon]="'pi pi-moon'"
+            (onChange)="docHTMLRef?.classList?.toggle('dark')" />
+    </div>
+</p-toolbar>

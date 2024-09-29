@@ -1,8 +1,14 @@
+@import './app/styles/fonts/tenon.scss';
+@import './app/styles/tailwind.css';
+@import './app/styles/primeng/theme.scss';
+
 * {
     box-sizing: border-box;
 }
 
 html {
+    font-family: 'tenon';
+
     &,
     body {
         height: 100%;

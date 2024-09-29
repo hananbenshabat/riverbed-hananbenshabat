@@ -1,5 +1,6 @@
 module.exports = {
-    content: ['./index.html', './src/**/*.ts'],
+    content: ['./index.html', './src/**/*.{html, ts}'],
     theme: { extend: {} },
-    plugins: [require('tailwindcss-primeui')]
+    plugins: [require('tailwindcss-primeui')],
+    darkMode: 'dark'
 };
