@@ -28,7 +28,6 @@ export class BooksComponent {
         this.loadingBooks = true;
 
         this.booksService.getBooks(query).subscribe((data?: LibraryAPIResponse<Book>) => {
-            console.log(data);
             this.books = data?.docs || [];
             this.loadingBooks = false;
 
