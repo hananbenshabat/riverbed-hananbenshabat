@@ -5,6 +5,7 @@ This is a full-stack application to view books from the Open Library API built w
 ## Installation
 
 [Node.js](https://nodejs.org/) (LTS version recommended)
+
 [Angular] npm install -g @angular/cli
 
 ## Development server
